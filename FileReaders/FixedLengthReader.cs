@@ -1,16 +1,17 @@
+using FileHelpers;
+
 class FixedLengthReader
 {
-    internal void readAndPrint(string filename)
+    public void readAndPrint(string filename)
     {
         Console.WriteLine($"Reading filename {filename}");
 
-        using var reader = new StreamReader(filename);
+        var engine = new FileHelperAsyncEngine<FixedLayout>();
 
-        string? line;
-
-        while ((line = reader.ReadLine()) != null)
+        using (engine.BeginReadFile(filename))
         {
-            Console.WriteLine(line);
+            foreach (var record in engine)
+                Console.WriteLine(record);
         }
     }
 }
