@@ -11,3 +11,4 @@
 * Create a PUT REST method that updates a record on the table.
 * Create a PATCH REST method that partially updates the table.
 * Create an extension method.
+* Use a logging framework
