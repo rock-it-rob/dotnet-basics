@@ -1,5 +1,6 @@
 # TODO
-* Read a file into a record line by line and print each as json.
+* *DONE* ~~Read a file into a record line by line.~~
+* print a string as json.
 * Write a file from the value input to a rest method.
 * Use dependency injection.
 * Create a REST method.
