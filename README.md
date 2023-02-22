@@ -1,17 +1,17 @@
 # TODO
 
 ## Fundamentals
-* *DONE* ~~Create an extension method.~~
+* **DONE** ~~Create an extension method.~~
 
 ## File IO
-* *DONE* ~~Read a file into a record line by line.~~
-* *DONE* ~~Write to a file.~~
+* **DONE** ~~Read a file into a record line by line.~~
+* **DONE** ~~Write to a file.~~
 
 ## Dependency Injection
-* *DONE* ~~Use dependency injection.~~
+* **DONE** ~~Use dependency injection.~~
 
 ## Serialization
-* print a string as json.
+* **DONE** ~~print a string as json.~~
 
 ## REST
 * Create a REST method.
@@ -27,7 +27,7 @@
 * Create a PATCH REST method that partially updates the table.
 
 ## Logging
-* *DONE* ~~Use a logging framework~~
+* **DONE** ~~Use a logging framework~~
 
 ## Testing
 * Write test classes in a testing framework
