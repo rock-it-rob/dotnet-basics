@@ -2,7 +2,7 @@
 * *DONE* ~~Read a file into a record line by line.~~
 * print a string as json.
 * Write a file from the value input to a rest method.
-* Use dependency injection.
+* *DONE* ~~Use dependency injection.~~
 * Create a REST method.
 * Create a GET REST method that returns from a file based on id.
 * Set up entity framework to create a db table.

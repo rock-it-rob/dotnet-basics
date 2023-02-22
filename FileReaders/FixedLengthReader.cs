@@ -5,10 +5,8 @@ class FixedLengthReader : IFixedLengthReader
 {
     private readonly ILogger<FixedLengthReader> log;
 
-    public FixedLengthReader(ILogger<FixedLengthReader> log)
-    {
+    public FixedLengthReader(ILogger<FixedLengthReader> log) =>
         this.log = log;
-    }
 
     public void readAndPrint(string filename)
     {
@@ -19,7 +17,6 @@ class FixedLengthReader : IFixedLengthReader
         using var _ = engine.BeginReadFile(filename);
 
         foreach (var record in engine)
-            //Console.WriteLine($"{record}");
             log.LogInformation($"{record}");
     }
 }
