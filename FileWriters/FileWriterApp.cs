@@ -17,7 +17,7 @@ class FileWriterApp
         log.LogInformation("Testing fixed-length writer");
 
         // Test the fixed-length writer.
-        writer.writeToFile(@"fixed-file-out.txt", layouts());
+        writer.writeToFile(layouts());
     }
 
     private IEnumerable<FixedLayout> layouts()

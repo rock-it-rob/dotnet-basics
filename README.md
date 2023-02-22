@@ -1,11 +1,11 @@
 # TODO
 
 ## Fundamentals
-* Create an extension method.
+* *DONE* ~~Create an extension method.~~
 
 ## File IO
 * *DONE* ~~Read a file into a record line by line.~~
-* Write to a file.
+* *DONE* ~~Write to a file.~~
 
 ## Dependency Injection
 * *DONE* ~~Use dependency injection.~~
