@@ -1,5 +1,7 @@
 using FileHelpers;
 
+namespace RecordLayouts;
+
 [FixedLengthRecord(FixedMode.AllowLessChars)]
 [IgnoreFirst]
 record FixedLayout

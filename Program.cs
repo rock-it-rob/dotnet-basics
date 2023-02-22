@@ -1,6 +1,7 @@
 ﻿using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.DependencyInjection;
 using FileReaders;
+using FileWriters;
 
 // Create a Host for DI.
 using IHost host = Host.CreateDefaultBuilder(args)
@@ -10,7 +11,13 @@ using IHost host = Host.CreateDefaultBuilder(args)
 void ConfigureServices(IServiceCollection services)
 {
     services.AddSingleton<IFixedLengthReader, FixedLengthReader>();
-    services.AddHostedService<FileReaderApp>();
+    services.AddSingleton<FileReaderApp>();
+    services.AddSingleton<IFixedLengthWriter, FixedLengthWriter>();
+    services.AddSingleton<FileWriterApp>();
 }
 
-host.Run();
+var reader = host.Services.GetService<FileReaderApp>();
+var writer = host.Services.GetService<FileWriterApp>();
+
+reader!.Execute();
+writer!.Execute();

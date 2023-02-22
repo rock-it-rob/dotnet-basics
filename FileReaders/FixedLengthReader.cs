@@ -1,5 +1,8 @@
 using FileHelpers;
 using Microsoft.Extensions.Logging;
+using RecordLayouts;
+
+namespace FileReaders;
 
 class FixedLengthReader : IFixedLengthReader
 {
