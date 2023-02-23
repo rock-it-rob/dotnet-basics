@@ -2,5 +2,5 @@ namespace FileReaders;
 
 public interface IFixedLengthReader
 {
-    public void readAndPrint(string filename);
+    public void readAndPrint(TextReader reader);
 }

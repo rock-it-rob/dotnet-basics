@@ -16,6 +16,7 @@ public class FileReaderApp
         log.LogInformation("Testing fixed-length reader");
 
         // Test the fixed-length reader.
-        fixedLengthReader.readAndPrint(@"sample-files/plain-text.txt");
+        var stream = new StreamReader(@"sample-files/plain-text.txt");
+        fixedLengthReader.readAndPrint(stream);
     }
 }

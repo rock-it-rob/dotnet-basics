@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FileBasics", "FileBasics\Fi
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Runner", "Runner\Runner.csproj", "{FF7418AB-0FC5-4FD1-86AA-2D8D424C3228}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FileBasics.Test", "FileBasics.Test\FileBasics.Test.csproj", "{D29C6A35-C103-418C-8CA8-5E6289AA2AE4}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -24,5 +26,9 @@ Global
 		{FF7418AB-0FC5-4FD1-86AA-2D8D424C3228}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FF7418AB-0FC5-4FD1-86AA-2D8D424C3228}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FF7418AB-0FC5-4FD1-86AA-2D8D424C3228}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D29C6A35-C103-418C-8CA8-5E6289AA2AE4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D29C6A35-C103-418C-8CA8-5E6289AA2AE4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D29C6A35-C103-418C-8CA8-5E6289AA2AE4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D29C6A35-C103-418C-8CA8-5E6289AA2AE4}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

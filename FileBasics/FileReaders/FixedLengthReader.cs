@@ -12,13 +12,13 @@ public class FixedLengthReader : IFixedLengthReader
     public FixedLengthReader(ILogger<FixedLengthReader> log) =>
         this.log = log;
 
-    public void readAndPrint(string filename)
+    public void readAndPrint(TextReader reader)
     {
-        Console.WriteLine($"Reading filename {filename}");
+        log.LogInformation("Reading");
 
         var engine = new FileHelperAsyncEngine<FixedLayout>();
 
-        using var _ = engine.BeginReadFile(filename);
+        using var _ = engine.BeginReadStream(reader);
 
         foreach (var record in engine)
             log.LogInformation($"{record}");
