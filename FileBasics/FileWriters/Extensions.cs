@@ -1,8 +1,9 @@
+using System.Collections.Generic;
 using RecordLayouts;
 
 namespace FileWriters;
 
-static class Extensions
+public static class Extensions
 {
     public const string DefaultFilename = @"fixed-file-out.txt";
 

@@ -1,6 +1,6 @@
 namespace FileReaders;
 
-interface IFixedLengthReader
+public interface IFixedLengthReader
 {
     public void readAndPrint(string filename);
 }

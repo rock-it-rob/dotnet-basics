@@ -1,10 +1,11 @@
+using System;
+using System.Collections.Generic;
 using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.Hosting;
 using RecordLayouts;
 
 namespace FileWriters;
 
-class FileWriterApp
+public class FileWriterApp
 {
     private readonly ILogger<FileWriterApp> log;
     private readonly IFixedLengthWriter writer;

@@ -1,3 +1,4 @@
+using System;
 using FileHelpers;
 using System.Text.Json;
 
@@ -5,7 +6,7 @@ namespace RecordLayouts;
 
 [FixedLengthRecord(FixedMode.AllowLessChars)]
 [IgnoreFirst]
-record FixedLayout
+public record FixedLayout
 {
     const string DateFormat = "yyyy-MM-dd";
 

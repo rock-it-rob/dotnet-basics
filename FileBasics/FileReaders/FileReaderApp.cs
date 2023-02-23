@@ -3,7 +3,7 @@ using Microsoft.Extensions.Hosting;
 
 namespace FileReaders;
 
-class FileReaderApp
+public class FileReaderApp
 {
     private readonly IFixedLengthReader fixedLengthReader;
     private readonly ILogger<FileReaderApp> log;

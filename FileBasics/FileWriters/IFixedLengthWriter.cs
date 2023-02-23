@@ -1,8 +1,9 @@
+using System.Collections.Generic;
 using RecordLayouts;
 
 namespace FileWriters;
 
-interface IFixedLengthWriter
+public interface IFixedLengthWriter
 {
     public void writeToFile(string filename, IEnumerable<FixedLayout> records);
 }

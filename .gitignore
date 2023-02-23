@@ -477,4 +477,4 @@ $RECYCLE.BIN/
 *.lnk
 
 # Project files
-/fixed-file-out.txt
+fixed-file-out.txt

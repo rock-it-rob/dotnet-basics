@@ -2,6 +2,7 @@
 
 ## Fundamentals
 * **DONE** ~~Create an extension method.~~
+* Understand how to organize a .NET project. Solution?
 
 ## File IO
 * **DONE** ~~Read a file into a record line by line.~~
