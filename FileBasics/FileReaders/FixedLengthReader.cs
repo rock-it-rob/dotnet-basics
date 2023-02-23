@@ -1,4 +1,3 @@
-using System;
 using FileHelpers;
 using Microsoft.Extensions.Logging;
 using RecordLayouts;
