@@ -13,7 +13,7 @@ void ConfigureServices(IServiceCollection services)
 {
     services.AddSingleton<IFixedLengthReader<FixedLayout>, FixedLengthReader<FixedLayout>>();
     services.AddSingleton<FileReaderApp>();
-    services.AddSingleton<IFixedLengthWriter, FixedLengthWriter>();
+    services.AddSingleton<IFixedLengthWriter<FixedLayout>, FixedLengthWriter<FixedLayout>>();
     services.AddSingleton<FileWriterApp>();
 }
 

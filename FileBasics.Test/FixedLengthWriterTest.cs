@@ -26,8 +26,8 @@ public class FixedLengthWriterTest
             loggerFactory.Dispose();
     }
 
-    private FixedLengthWriter createFixedLengthWriter() =>
-        new FixedLengthWriter(loggerFactory!.CreateLogger<FixedLengthWriter>());
+    private FixedLengthWriter<FixedLayout> createFixedLengthWriter() =>
+        new FixedLengthWriter<FixedLayout>(loggerFactory!.CreateLogger<FixedLengthWriter<FixedLayout>>());
 
     [Test]
     public void TestWriteToString()

@@ -1,5 +1,3 @@
-using System;
-using System.Collections.Generic;
 using Microsoft.Extensions.Logging;
 using RecordLayouts;
 
@@ -8,9 +6,9 @@ namespace FileWriters;
 public class FileWriterApp
 {
     private readonly ILogger<FileWriterApp> log;
-    private readonly IFixedLengthWriter writer;
+    private readonly IFixedLengthWriter<FixedLayout> writer;
 
-    public FileWriterApp(ILogger<FileWriterApp> log, IFixedLengthWriter writer) =>
+    public FileWriterApp(ILogger<FileWriterApp> log, IFixedLengthWriter<FixedLayout> writer) =>
         (this.log, this.writer) = (log, writer);
 
     public void Execute()
