@@ -1,6 +1,7 @@
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Logging.Console;
 using FileReaders;
+using RecordLayouts;
 
 namespace FileBasics.Test;
 
@@ -27,8 +28,8 @@ public class FixedLengthReaderTest
             loggerFactory.Dispose();
     }
 
-    private FixedLengthReader createFixedLengthReader() =>
-        new FixedLengthReader(loggerFactory!.CreateLogger<FixedLengthReader>());
+    private FixedLengthReader<FixedLayout> createFixedLengthReader() =>
+        new FixedLengthReader<FixedLayout>(loggerFactory!.CreateLogger<FixedLengthReader<FixedLayout>>());
 
     [TestCase("IdName  AmountWhenCreated\n0 name  00.0000001-01-01 ")]
     public void TestReadDataMatches(string record)
