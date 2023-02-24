@@ -31,4 +31,4 @@
 * **DONE** ~~Use a logging framework~~
 
 ## Testing
-* Write test classes in a testing framework
+* **DONE** ~~Write test classes in a testing framework~~
