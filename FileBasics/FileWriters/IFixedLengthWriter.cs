@@ -5,5 +5,5 @@ namespace FileWriters;
 
 public interface IFixedLengthWriter
 {
-    public void writeToFile(string filename, IEnumerable<FixedLayout> records);
+    public void writeToStream(TextWriter writer, IEnumerable<FixedLayout> records);
 }

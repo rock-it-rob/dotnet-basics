@@ -14,11 +14,11 @@ public class FixedLengthWriter : IFixedLengthWriter
     public FixedLengthWriter(ILogger<FixedLengthWriter> log) =>
         this.log = log;
 
-    public void writeToFile(string filename, IEnumerable<FixedLayout> records)
+    public void writeToStream(TextWriter writer, IEnumerable<FixedLayout> records)
     {
         var engine = new FileHelperAsyncEngine<FixedLayout>();
 
-        using var _ = engine.BeginWriteFile(filename);
+        using var _ = engine.BeginWriteStream(writer);
 
         foreach (FixedLayout layout in records)
             engine.WriteNext(layout);
