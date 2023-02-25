@@ -1,6 +1,5 @@
-using RecordLayouts;
 
-namespace FileWriters;
+namespace FileBasics.FileWriters;
 
 public static class Extensions
 {

@@ -2,7 +2,7 @@ using System;
 using FileHelpers;
 using System.Text.Json;
 
-namespace RecordLayouts;
+namespace FileBasics.RecordLayouts;
 
 [FixedLengthRecord(FixedMode.AllowLessChars)]
 [IgnoreFirst]

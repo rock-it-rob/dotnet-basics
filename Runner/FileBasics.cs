@@ -1,8 +1,8 @@
 ﻿using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.DependencyInjection;
-using FileReaders;
-using FileWriters;
-using RecordLayouts;
+using FileBasics.FileReaders;
+using FileBasics.FileWriters;
+using FileBasics.RecordLayouts;
 
 // Create a Host for DI.
 using IHost host = Host.CreateDefaultBuilder(args)

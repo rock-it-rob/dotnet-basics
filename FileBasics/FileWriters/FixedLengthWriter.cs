@@ -1,9 +1,7 @@
-using System.Collections.Generic;
 using Microsoft.Extensions.Logging;
 using FileHelpers;
-using RecordLayouts;
 
-namespace FileWriters;
+namespace FileBasics.FileWriters;
 
 // Will be registered in the DI container with a scoped lifetime. So each
 // instance can only write to exactly one file.

@@ -1,7 +1,7 @@
-using FileWriters;
+using FileBasics.FileWriters;
+using FileBasics.RecordLayouts;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Logging.Console;
-using RecordLayouts;
 
 public class FixedLengthWriterTest
 {

@@ -1,4 +1,4 @@
-namespace FileReaders;
+namespace FileBasics.FileReaders;
 
 /**
  * <summary>

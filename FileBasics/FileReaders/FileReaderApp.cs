@@ -1,7 +1,7 @@
+using FileBasics.RecordLayouts;
 using Microsoft.Extensions.Logging;
-using RecordLayouts;
 
-namespace FileReaders;
+namespace FileBasics.FileReaders;
 
 public class FileReaderApp
 {
@@ -16,7 +16,7 @@ public class FileReaderApp
         log.LogInformation("Testing fixed-length reader");
 
         fixedLengthReader.OnRead += (layout) => Console.WriteLine($"Read {layout}");
-        
+
         // Test the fixed-length reader.
         var stream = new StreamReader(@"sample-files/plain-text.txt");
         fixedLengthReader.readAndPrint(stream);

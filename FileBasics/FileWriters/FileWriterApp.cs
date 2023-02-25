@@ -1,7 +1,7 @@
+using FileBasics.RecordLayouts;
 using Microsoft.Extensions.Logging;
-using RecordLayouts;
 
-namespace FileWriters;
+namespace FileBasics.FileWriters;
 
 public class FileWriterApp
 {

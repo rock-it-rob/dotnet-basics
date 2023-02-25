@@ -1,4 +1,4 @@
-namespace FileWriters;
+namespace FileBasics.FileWriters;
 
 public interface IFixedLengthWriter<T>
     where T : class

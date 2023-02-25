@@ -1,7 +1,7 @@
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Logging.Console;
-using FileReaders;
-using RecordLayouts;
+using FileBasics.FileReaders;
+using FileBasics.RecordLayouts;
 
 namespace FileBasics.Test;
 
