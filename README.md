@@ -15,7 +15,7 @@
 * **DONE** ~~print a string as json.~~
 
 ## REST
-* Create a REST method.
+* **DONE** ~~Create a REST method.~~
 * Write a file from the value input to a rest method.
 * Create a GET REST method that returns from a file based on id.
 
@@ -32,3 +32,8 @@
 
 ## Testing
 * **DONE** ~~Write test classes in a testing framework~~
+* Setup testing for Rest endpoints
+
+## Authentication and Authorization
+* Authenticate through Azure
+* Protect a Rest endpoint using Oauth
