@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
+using ApiBasics.Model;
 
 namespace ApiBasics.Controllers;
 
@@ -9,14 +10,16 @@ namespace ApiBasics.Controllers;
 public class PingController : AbstractApiController
 {
     private readonly ILogger<PingController> _log;
+    private readonly IHostEnvironment _environment;
 
-    public PingController(ILogger<PingController> log) =>
-        _log = log;
+    public PingController(ILogger<PingController> log, IHostEnvironment environment) =>
+        (_log, _environment) = (log, environment);
 
     [HttpGet]
-    public Dictionary<string, string> get()
+    public Diagnostic get()
     {
         _log.LogInformation("Responding with diagnostics");
-        return new Dictionary<string, string>() { ["status"] = "Ok" };
+
+        return new Diagnostic { Environment = _environment.EnvironmentName };
     }
 }
