@@ -1,5 +1,4 @@
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Http;
 using ApiBasics.Model;
 namespace ApiBasics.Controllers;
 
@@ -14,6 +13,7 @@ public class NotificationController : AbstractApiController
     {
         _notifications.Add(new Notification { Id = 1, Subject = "Notification One" });
         _notifications.Add(new Notification { Id = 2, Subject = "Notification Two" });
+        _notifications.Add(new Notification { Id = 2, Subject = "Notification Three" });
     }
 
     public NotificationController(ILogger<NotificationController> log) =>
@@ -27,12 +27,16 @@ public class NotificationController : AbstractApiController
     {
         _log.LogInformation($"Received request for notification with id: {id}");
 
-        foreach (var n in _notifications)
+        try
         {
-            if (n.Id == id)
-                return n;
+            return (from notification in _notifications
+                    where notification.Id == id
+                    select notification).Single();
         }
-
-        return NotFound();
+        catch (InvalidOperationException e)
+        {
+            _log.LogError($"Request for {id} failed: {e.Message}");
+            return NotFound();
+        }
     }
 }
