@@ -1,20 +1,19 @@
 ﻿using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using EntityFrameworkBasics.Configuration;
+using Microsoft.Extensions.Options;
 
 namespace EntityFrameworkBasics;
 
-public class SampleOperations
+public class SampleOperations : BackgroundService
 {
-    public const string DB_OPTIONS_KEY = "Db";
-
     private readonly ILogger<SampleOperations> _log;
-    private readonly IConfiguration _config;
+    private readonly DbConfigurationOptions _dbConfigurationOptions;
+    private IHostApplicationLifetime _lifetime;
 
-    public SampleOperations(ILogger<SampleOperations> log, IConfiguration config) =>
-        (_log, _config) = (log, config);
+    public SampleOperations(ILogger<SampleOperations> log, IOptions<DbConfigurationOptions> dbConfigurationOptions, IHostApplicationLifetime lifetime) =>
+        (_log, _dbConfigurationOptions, _lifetime) = (log, dbConfigurationOptions.Value, lifetime);
 
     public static void Main(string[] args)
     {
@@ -22,27 +21,31 @@ public class SampleOperations
             .ConfigureServices(AddServices)
             .Build();
 
-
-        host
-            .Services
-            .GetService<SampleOperations>()!
-            .Run();
+        host.Run();
     }
 
-    private static void AddServices(IServiceCollection services)
+    private static void AddServices(HostBuilderContext context, IServiceCollection services)
     {
-        services.AddSingleton<SampleOperations>();
+        // Services
+        services.AddHostedService<SampleOperations>();
+
+        // Options
+        services.Configure<DbConfigurationOptions>(
+            context.Configuration.GetSection(nameof(DbConfigurationOptions))
+        );
     }
 
-    private void Run()
+    protected override async Task ExecuteAsync(CancellationToken token)
     {
-        _log.LogInformation("Starting");
+        await Task.Run(() =>
+        {
+            _log.LogInformation("Starting");
 
-        DbConfigurationOptions options = new();
-        _config.Bind(DB_OPTIONS_KEY, options);
+            _dbConfigurationOptions.Validate();
 
-        options.Validate();
+            _log.LogDebug($"{_dbConfigurationOptions}");
+        });
 
-        _log.LogDebug($"{options}");
+        _lifetime.StopApplication();
     }
 }
