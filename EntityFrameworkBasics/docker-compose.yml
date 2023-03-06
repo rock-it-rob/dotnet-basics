@@ -1,0 +1,9 @@
+services:
+  db:
+    image: postgres:alpine
+    environment:
+      - POSTGRESDB=ef-core
+      - POSTGRES_USER=ef-user
+      - POSTGRES_PASSWORD=ef-password
+    expose:
+      - "5432"
