@@ -5,6 +5,9 @@ namespace EntityFrameworkBasics.Options;
 public sealed record DbConfigurationOptions
 {
     [Required]
+    public string? Host { get; set; }
+
+    [Required]
     public string? Name { get; set; }
 
     [Required]

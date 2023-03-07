@@ -2,7 +2,9 @@
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.DependencyInjection;
 using EntityFrameworkBasics.Options;
+using EntityFrameworkBasics.Data.Notification;
 using Microsoft.Extensions.Options;
+using Microsoft.EntityFrameworkCore;
 
 namespace EntityFrameworkBasics;
 
@@ -10,10 +12,21 @@ public class SampleOperations : BackgroundService
 {
     private readonly ILogger<SampleOperations> _log;
     private readonly DbConfigurationOptions _dbConfigurationOptions;
-    private IHostApplicationLifetime _lifetime;
+    private readonly IHostApplicationLifetime _lifetime;
+    private readonly NotificationContext _notificationContext;
 
-    public SampleOperations(ILogger<SampleOperations> log, IOptions<DbConfigurationOptions> dbConfigurationOptions, IHostApplicationLifetime lifetime) =>
-        (_log, _dbConfigurationOptions, _lifetime) = (log, dbConfigurationOptions.Value, lifetime);
+    public SampleOperations(
+        ILogger<SampleOperations> log,
+        IOptions<DbConfigurationOptions> dbConfigurationOptions,
+        IHostApplicationLifetime lifetime,
+        NotificationContext notificationContext
+    )
+    {
+        _log = log;
+        _dbConfigurationOptions = dbConfigurationOptions.Value;
+        _lifetime = lifetime;
+        _notificationContext = notificationContext;
+    }
 
     public static void Main(string[] args)
     {
@@ -33,6 +46,12 @@ public class SampleOperations : BackgroundService
         services.AddOptions<DbConfigurationOptions>()
             .Bind(context.Configuration.GetSection(nameof(DbConfigurationOptions)))
             .ValidateDataAnnotations();
+
+        //
+        // Configure the Db Context in its OnConfigure method. Options are needed from DI.
+        //
+
+        services.AddDbContext<NotificationContext>();
     }
 
     protected override async Task ExecuteAsync(CancellationToken token)
@@ -40,7 +59,8 @@ public class SampleOperations : BackgroundService
         await Task.Run(() =>
         {
             _log.LogInformation("Starting");
-            _log.LogDebug($"{_dbConfigurationOptions}");
+            _log.LogInformation($"{_notificationContext}");
+            //_log.LogDebug($"{_dbConfigurationOptions}");
         });
 
         _lifetime.StopApplication();
