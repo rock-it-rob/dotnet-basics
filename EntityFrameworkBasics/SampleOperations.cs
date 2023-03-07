@@ -4,11 +4,10 @@ using Microsoft.Extensions.DependencyInjection;
 using EntityFrameworkBasics.Options;
 using EntityFrameworkBasics.Data.Notification;
 using Microsoft.Extensions.Options;
-using Microsoft.EntityFrameworkCore;
 
 namespace EntityFrameworkBasics;
 
-public class SampleOperations : BackgroundService
+public class SampleOperations
 {
     private readonly ILogger<SampleOperations> _log;
     private readonly DbConfigurationOptions _dbConfigurationOptions;
@@ -34,13 +33,17 @@ public class SampleOperations : BackgroundService
             .ConfigureServices(AddServices)
             .Build();
 
-        host.Run();
+        var ops = host.Services.GetRequiredService<SampleOperations>();
+
+        host.StartAsync();
+        ops.Execute();
+        host.StopAsync();
     }
 
     private static void AddServices(HostBuilderContext context, IServiceCollection services)
     {
         // Services
-        services.AddHostedService<SampleOperations>();
+        services.AddScoped<SampleOperations>();
 
         // Options
         services.AddOptions<DbConfigurationOptions>()
@@ -54,14 +57,13 @@ public class SampleOperations : BackgroundService
         services.AddDbContext<NotificationContext>();
     }
 
-    protected override async Task ExecuteAsync(CancellationToken token)
+    protected void Execute()
     {
-        await Task.Run(() =>
-        {
-            _log.LogInformation("Starting");
-            _log.LogInformation($"{_notificationContext}");
-            //_log.LogDebug($"{_dbConfigurationOptions}");
-        });
+        _log.LogInformation("Starting");
+
+        var nots = _notificationContext.Notifications!.Count<Notification>();
+
+        _log.LogInformation($"Total Notifications = {nots}");
 
         _lifetime.StopApplication();
     }
