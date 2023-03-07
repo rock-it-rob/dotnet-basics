@@ -1,7 +1,7 @@
 ﻿using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.DependencyInjection;
-using EntityFrameworkBasics.Configuration;
+using EntityFrameworkBasics.Options;
 using Microsoft.Extensions.Options;
 
 namespace EntityFrameworkBasics;
@@ -30,9 +30,9 @@ public class SampleOperations : BackgroundService
         services.AddHostedService<SampleOperations>();
 
         // Options
-        services.Configure<DbConfigurationOptions>(
-            context.Configuration.GetSection(nameof(DbConfigurationOptions))
-        );
+        services.AddOptions<DbConfigurationOptions>()
+            .Bind(context.Configuration.GetSection(nameof(DbConfigurationOptions)))
+            .ValidateDataAnnotations();
     }
 
     protected override async Task ExecuteAsync(CancellationToken token)
@@ -40,9 +40,6 @@ public class SampleOperations : BackgroundService
         await Task.Run(() =>
         {
             _log.LogInformation("Starting");
-
-            _dbConfigurationOptions.Validate();
-
             _log.LogDebug($"{_dbConfigurationOptions}");
         });
 
