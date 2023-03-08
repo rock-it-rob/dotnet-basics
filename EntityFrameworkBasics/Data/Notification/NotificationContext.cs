@@ -23,4 +23,17 @@ public class NotificationContext : AbstractDatabaseContext
         base.OnConfiguring(options);
         _log.LogInformation($"Configuring {nameof(NotificationContext)}");
     }
+
+    protected override void OnModelCreating(ModelBuilder builder)
+    {
+        builder
+            .Entity<Notification>()
+            .Property(e => e.Updated)
+            .HasDefaultValueSql("now()");
+
+        builder
+            .Entity<NotificationMessage>()
+            .Property(e => e.Updated)
+            .HasDefaultValueSql("now()");
+    }
 }

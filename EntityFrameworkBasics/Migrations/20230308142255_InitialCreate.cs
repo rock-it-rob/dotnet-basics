@@ -19,7 +19,7 @@ namespace EntityFrameworkBasics.Migrations
                     id = table.Column<long>(type: "bigint", nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
                     message = table.Column<string>(type: "text", nullable: true),
-                    updated = table.Column<DateTime>(type: "timestamp with time zone", nullable: true)
+                    updated = table.Column<DateTime>(type: "timestamp with time zone", nullable: true, defaultValueSql: "now()")
                 },
                 constraints: table =>
                 {
@@ -33,7 +33,7 @@ namespace EntityFrameworkBasics.Migrations
                     id = table.Column<long>(type: "bigint", nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
                     subject = table.Column<string>(type: "text", nullable: true),
-                    updated = table.Column<DateTime>(type: "timestamp with time zone", nullable: true)
+                    updated = table.Column<DateTime>(type: "timestamp with time zone", nullable: true, defaultValueSql: "now()")
                 },
                 constraints: table =>
                 {

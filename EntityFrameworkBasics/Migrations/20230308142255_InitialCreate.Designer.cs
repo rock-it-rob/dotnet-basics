@@ -12,7 +12,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace EntityFrameworkBasics.Migrations
 {
     [DbContext(typeof(NotificationContext))]
-    [Migration("20230308140020_InitialCreate")]
+    [Migration("20230308142255_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />
@@ -39,8 +39,10 @@ namespace EntityFrameworkBasics.Migrations
                         .HasColumnName("subject");
 
                     b.Property<DateTime?>("Updated")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("timestamp with time zone")
-                        .HasColumnName("updated");
+                        .HasColumnName("updated")
+                        .HasDefaultValueSql("now()");
 
                     b.HasKey("Id")
                         .HasName("pk_notifications");
@@ -62,8 +64,10 @@ namespace EntityFrameworkBasics.Migrations
                         .HasColumnName("message");
 
                     b.Property<DateTime?>("Updated")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("timestamp with time zone")
-                        .HasColumnName("updated");
+                        .HasColumnName("updated")
+                        .HasDefaultValueSql("now()");
 
                     b.HasKey("Id")
                         .HasName("pk_notification_messages");
