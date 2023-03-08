@@ -5,6 +5,6 @@ namespace EntityFrameworkBasics.Data.Notification;
 public class NotificationMessage
 {
     public long? Id { get; set; }
-    public string? Message { get; set; }
-    public DateTime? Updated { get; set; }
+    public required string Message { get; set; }
+    public required DateTime Updated { get; set; }
 }

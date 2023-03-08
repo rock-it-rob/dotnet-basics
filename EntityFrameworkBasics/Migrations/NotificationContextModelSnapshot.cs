@@ -32,10 +32,11 @@ namespace EntityFrameworkBasics.Migrations
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<long?>("Id"));
 
                     b.Property<string>("Subject")
+                        .IsRequired()
                         .HasColumnType("text")
                         .HasColumnName("subject");
 
-                    b.Property<DateTime?>("Updated")
+                    b.Property<DateTime>("Updated")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("timestamp with time zone")
                         .HasColumnName("updated")
@@ -57,10 +58,11 @@ namespace EntityFrameworkBasics.Migrations
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<long?>("Id"));
 
                     b.Property<string>("Message")
+                        .IsRequired()
                         .HasColumnType("text")
                         .HasColumnName("message");
 
-                    b.Property<DateTime?>("Updated")
+                    b.Property<DateTime>("Updated")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("timestamp with time zone")
                         .HasColumnName("updated")
