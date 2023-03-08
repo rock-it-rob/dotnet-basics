@@ -11,19 +11,16 @@ public class SampleOperations
 {
     private readonly ILogger<SampleOperations> _log;
     private readonly DbConfigurationOptions _dbConfigurationOptions;
-    private readonly IHostApplicationLifetime _lifetime;
     private readonly NotificationContext _notificationContext;
 
     public SampleOperations(
         ILogger<SampleOperations> log,
         IOptions<DbConfigurationOptions> dbConfigurationOptions,
-        IHostApplicationLifetime lifetime,
         NotificationContext notificationContext
     )
     {
         _log = log;
         _dbConfigurationOptions = dbConfigurationOptions.Value;
-        _lifetime = lifetime;
         _notificationContext = notificationContext;
     }
 
@@ -65,6 +62,6 @@ public class SampleOperations
 
         _log.LogInformation($"Total Notifications = {nots}");
 
-        _lifetime.StopApplication();
+        //_lifetime.StopApplication();
     }
 }
