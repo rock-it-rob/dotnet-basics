@@ -1,10 +1,11 @@
-using Microsoft.EntityFrameworkCore;
+using System.ComponentModel.DataAnnotations;
+
 namespace EntityFrameworkBasics.Data.Notification;
 
-[PrimaryKey(nameof(Id))]
 public class NotificationMessage
 {
-    public long? Id { get; set; }
+    [Key]
+    public required long Id { get; set; }
     public required string Message { get; set; }
     public required DateTime Updated { get; set; }
 }

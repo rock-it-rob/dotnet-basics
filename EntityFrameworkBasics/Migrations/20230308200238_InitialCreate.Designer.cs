@@ -12,7 +12,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace EntityFrameworkBasics.Migrations
 {
     [DbContext(typeof(NotificationContext))]
-    [Migration("20230308194603_InitialCreate")]
+    [Migration("20230308200238_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />
@@ -27,12 +27,12 @@ namespace EntityFrameworkBasics.Migrations
 
             modelBuilder.Entity("EntityFrameworkBasics.Data.Notification.Notification", b =>
                 {
-                    b.Property<long?>("Id")
+                    b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("bigint")
                         .HasColumnName("id");
 
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<long?>("Id"));
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<long>("Id"));
 
                     b.Property<string>("Subject")
                         .IsRequired()
@@ -53,12 +53,12 @@ namespace EntityFrameworkBasics.Migrations
 
             modelBuilder.Entity("EntityFrameworkBasics.Data.Notification.NotificationMessage", b =>
                 {
-                    b.Property<long?>("Id")
+                    b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("bigint")
                         .HasColumnName("id");
 
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<long?>("Id"));
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<long>("Id"));
 
                     b.Property<string>("Message")
                         .IsRequired()
