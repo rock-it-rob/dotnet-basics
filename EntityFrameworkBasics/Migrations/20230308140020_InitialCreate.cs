@@ -13,31 +13,31 @@ namespace EntityFrameworkBasics.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
-                name: "NotificationMessages",
+                name: "notification_messages",
                 columns: table => new
                 {
-                    Id = table.Column<long>(type: "bigint", nullable: false)
+                    id = table.Column<long>(type: "bigint", nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
-                    Message = table.Column<string>(type: "text", nullable: true),
-                    Updated = table.Column<DateTime>(type: "timestamp with time zone", nullable: true)
+                    message = table.Column<string>(type: "text", nullable: true),
+                    updated = table.Column<DateTime>(type: "timestamp with time zone", nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_NotificationMessages", x => x.Id);
+                    table.PrimaryKey("pk_notification_messages", x => x.id);
                 });
 
             migrationBuilder.CreateTable(
-                name: "Notifications",
+                name: "notifications",
                 columns: table => new
                 {
-                    Id = table.Column<long>(type: "bigint", nullable: false)
+                    id = table.Column<long>(type: "bigint", nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
-                    Subject = table.Column<string>(type: "text", nullable: true),
-                    Updated = table.Column<DateTime>(type: "timestamp with time zone", nullable: true)
+                    subject = table.Column<string>(type: "text", nullable: true),
+                    updated = table.Column<DateTime>(type: "timestamp with time zone", nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Notifications", x => x.Id);
+                    table.PrimaryKey("pk_notifications", x => x.id);
                 });
         }
 
@@ -45,10 +45,10 @@ namespace EntityFrameworkBasics.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "NotificationMessages");
+                name: "notification_messages");
 
             migrationBuilder.DropTable(
-                name: "Notifications");
+                name: "notifications");
         }
     }
 }
