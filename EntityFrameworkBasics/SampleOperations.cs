@@ -58,7 +58,7 @@ public class SampleOperations
     {
         _log.LogInformation("Starting");
 
-        var nots = _notificationContext.Notifications!.Count<Notification>();
+        var nots = _notificationContext.Notifications!.Count();
 
         _log.LogInformation($"Total Notifications = {nots}");
 
