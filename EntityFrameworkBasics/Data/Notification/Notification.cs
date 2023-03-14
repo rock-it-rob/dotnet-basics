@@ -5,7 +5,7 @@ namespace EntityFrameworkBasics.Data.Notification;
 public class Notification
 {
     [Key]
-    public required long Id { get; set; }
+    public long Id { get; set; }
 
     public required string Subject { get; set; }
 

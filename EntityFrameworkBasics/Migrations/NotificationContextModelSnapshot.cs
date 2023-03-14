@@ -37,15 +37,16 @@ namespace EntityFrameworkBasics.Migrations
                         .HasColumnName("subject");
 
                     b.Property<DateTime>("Updated")
-                        .ValueGeneratedOnAdd()
                         .HasColumnType("timestamp with time zone")
-                        .HasColumnName("updated")
-                        .HasDefaultValueSql("now()");
+                        .HasColumnName("updated");
 
                     b.HasKey("Id")
                         .HasName("pk_notifications");
 
-                    b.ToTable("notifications", (string)null);
+                    b.ToTable("notifications", null, t =>
+                        {
+                            t.HasTrigger("create trigger n1_trigger before insert or update on notifications\n	                        for each row execute procedure set_update()");
+                        });
                 });
 
             modelBuilder.Entity("EntityFrameworkBasics.Data.Notification.NotificationMessage", b =>
@@ -63,10 +64,8 @@ namespace EntityFrameworkBasics.Migrations
                         .HasColumnName("message");
 
                     b.Property<DateTime>("Updated")
-                        .ValueGeneratedOnAdd()
                         .HasColumnType("timestamp with time zone")
-                        .HasColumnName("updated")
-                        .HasDefaultValueSql("now()");
+                        .HasColumnName("updated");
 
                     b.HasKey("Id")
                         .HasName("pk_notification_messages");

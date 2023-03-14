@@ -1,4 +1,5 @@
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using Microsoft.Extensions.Options;
 using Microsoft.Extensions.Logging;
 using EntityFrameworkBasics.Options;
@@ -24,16 +25,17 @@ public class NotificationContext : AbstractDatabaseContext
         _log.LogInformation($"Configuring {nameof(NotificationContext)}");
     }
 
-    protected override void OnModelCreating(ModelBuilder builder)
+    protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
-        builder
-            .Entity<Notification>()
-            .Property(e => e.Updated)
-            .HasDefaultValueSql("now()");
+        // Add a trigger to populate the updated column on default updates.
+        modelBuilder
+            .Entity<Notification>(
+                builder =>
+                    builder.Metadata.AddTrigger(
+                        @"create trigger n1_trigger before insert or update on notifications
+	                        for each row execute procedure set_update()"
+                    )
+            );
 
-        builder
-            .Entity<NotificationMessage>()
-            .Property(e => e.Updated)
-            .HasDefaultValueSql("now()");
     }
 }
