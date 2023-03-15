@@ -10,4 +10,6 @@ public class Notification
     public required string Subject { get; set; }
 
     public required DateTime Updated { get; set; }
+
+    public List<NotificationMessage> NotificationMessages = new List<NotificationMessage>();
 }
