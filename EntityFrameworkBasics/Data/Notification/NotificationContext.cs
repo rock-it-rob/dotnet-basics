@@ -10,6 +10,7 @@ public class NotificationContext : AbstractDatabaseContext
 {
     public DbSet<Notification>? Notifications { get; set; }
     public DbSet<NotificationMessage>? NotificationMessages { get; set; }
+    public DbSet<NotificationRecipient>? NotificationRecipients { get; set; }
 
     public NotificationContext(
         DbContextOptions<NotificationContext> options,
@@ -27,6 +28,9 @@ public class NotificationContext : AbstractDatabaseContext
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
+        // Call the entity method on each entity to fire their configuring interfaces.
+        modelBuilder.ApplyConfigurationsFromAssembly(typeof(NotificationRecipientConfiguration).Assembly);
+
         // Add a trigger to populate the updated column on default updates.
         modelBuilder
             .Entity<Notification>(
