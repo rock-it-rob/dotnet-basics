@@ -14,4 +14,8 @@ public class NotificationMessage
     public required long NotificationId { get; set; }
 
     public required Notification Notification { get; set; }
+
+    // Can this setter be private?
+    [Timestamp]
+    public uint Version { get; private set; }
 }

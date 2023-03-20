@@ -21,6 +21,10 @@ public class NotificationRecipient
 
     [Required]
     public Notification? notification { get; set; }
+
+    // Can this setter be private?
+    [Timestamp]
+    public uint Version { get; private set; }
 }
 
 public class NotificationRecipientConfiguration : IEntityTypeConfiguration<NotificationRecipient>

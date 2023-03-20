@@ -12,4 +12,8 @@ public class Notification
     public required DateTime Updated { get; set; }
 
     public List<NotificationMessage> NotificationMessages = new List<NotificationMessage>();
+
+    // Can this setter be private?
+    [Timestamp]
+    public uint Version { get; private set; }
 }
