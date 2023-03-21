@@ -23,13 +23,6 @@ public class NotificationMessage
     // Can this setter be private?
     [Timestamp]
     public uint Version { get; private set; }
-
-    public NotificationMessage()
-    {
-    }
-
-    public NotificationMessage(string message)
-        => Message = message;
 }
 
 public class NotificationMessageConfiguration : IEntityTypeConfiguration<NotificationMessage>

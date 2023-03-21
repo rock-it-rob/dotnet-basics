@@ -24,13 +24,6 @@ public class NotificationRecipient
     // Can this setter be private?
     [Timestamp]
     public uint Version { get; private set; }
-
-    public NotificationRecipient()
-    {
-    }
-
-    public NotificationRecipient(string emailAddress)
-        => EmailAddress = emailAddress;
 }
 
 public class NotificationRecipientConfiguration : IEntityTypeConfiguration<NotificationRecipient>
