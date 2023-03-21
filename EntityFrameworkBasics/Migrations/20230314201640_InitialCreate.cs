@@ -1,6 +1,4 @@
 ﻿using Microsoft.EntityFrameworkCore.Migrations;
-using Microsoft.EntityFrameworkCore.Migrations.Operations;
-using Microsoft.EntityFrameworkCore.Migrations.Operations.Builders;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 #nullable disable
@@ -13,7 +11,17 @@ namespace EntityFrameworkBasics.Migrations
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.CreateSetUpdateFunction();
+            migrationBuilder.Sql(
+                """
+                create function set_update() returns trigger as
+                $$
+                begin
+                    new.updated = now();
+                    return new;
+                end;
+                $$ language plpgsql;
+                """
+            );
 
             migrationBuilder.CreateTable(
                 name: "notification_messages",
@@ -29,7 +37,12 @@ namespace EntityFrameworkBasics.Migrations
                     table.PrimaryKey("pk_notification_messages", x => x.id);
                 });
 
-            migrationBuilder.AddSetUpdateTrigger("notification_messages");
+            migrationBuilder.Sql(
+                """
+                create trigger notification_messages_setupdate_trg before insert or update on notification_messages
+                    for each row execute procedure set_update();
+                """
+            );
 
             migrationBuilder.CreateTable(
                 name: "notifications",
@@ -45,7 +58,12 @@ namespace EntityFrameworkBasics.Migrations
                     table.PrimaryKey("pk_notifications", x => x.id);
                 });
 
-            migrationBuilder.AddSetUpdateTrigger("notifications");
+            migrationBuilder.Sql(
+                """
+                create trigger notifications_setupdate_trg before insert or update on notifications
+                    for each row execute procedure set_update();
+                """
+            );
         }
 
         /// <inheritdoc />
@@ -57,36 +75,7 @@ namespace EntityFrameworkBasics.Migrations
             migrationBuilder.DropTable(
                 name: "notifications");
 
-            migrationBuilder.DropSetUpdateFunction();
+            migrationBuilder.Sql("drop function set_update();");
         }
-    }
-
-    public static class Extensions
-    {
-        public static OperationBuilder<SqlOperation> CreateSetUpdateFunction(this MigrationBuilder migrationBuilder)
-            =>
-            migrationBuilder.Sql(
-                """
-                create function set_update() returns trigger as
-                $$
-                begin
-                    new.updated = now();
-                    return new;
-                end;
-                $$ language plpgsql;
-                """
-            );
-
-        public static OperationBuilder<SqlOperation> DropSetUpdateFunction(this MigrationBuilder migrationBuilder)
-            => migrationBuilder.Sql("drop function set_update();");
-
-        public static OperationBuilder<SqlOperation> AddSetUpdateTrigger(this MigrationBuilder migrationBuilder, string table)
-            =>
-            migrationBuilder.Sql(
-                $"""
-                create trigger {table}_setupdate_trg before insert or update on {table}
-                    for each row execute procedure set_update();
-                """
-            );
     }
 }

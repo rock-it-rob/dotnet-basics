@@ -9,8 +9,7 @@ public class NotificationRecipient
     [Key]
     public long Id { get; set; }
 
-    [Required]
-    public string? EmailAddress { get; set; }
+    public required string EmailAddress { get; set; }
 
     // Set from the database by default.
     [Required]
@@ -25,6 +24,13 @@ public class NotificationRecipient
     // Can this setter be private?
     [Timestamp]
     public uint Version { get; private set; }
+
+    public NotificationRecipient()
+    {
+    }
+
+    public NotificationRecipient(string emailAddress)
+        => EmailAddress = emailAddress;
 }
 
 public class NotificationRecipientConfiguration : IEntityTypeConfiguration<NotificationRecipient>

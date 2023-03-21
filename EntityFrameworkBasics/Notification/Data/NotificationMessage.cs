@@ -1,4 +1,6 @@
 using System.ComponentModel.DataAnnotations;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace EntityFrameworkBasics.Notification.Data;
 
@@ -9,13 +11,34 @@ public class NotificationMessage
 
     public required string Message { get; set; }
 
-    public required DateTime Updated { get; set; }
+    [Required]
+    public DateTime? Updated { get; private set; }
 
-    public required long NotificationId { get; set; }
+    [Required]
+    public long? NotificationId { get; set; }
 
-    public required Notification Notification { get; set; }
+    [Required]
+    public Notification? Notification { get; set; }
 
     // Can this setter be private?
     [Timestamp]
     public uint Version { get; private set; }
+
+    public NotificationMessage()
+    {
+    }
+
+    public NotificationMessage(string message)
+        => Message = message;
+}
+
+public class NotificationMessageConfiguration : IEntityTypeConfiguration<NotificationMessage>
+{
+    public void Configure(EntityTypeBuilder<NotificationMessage> entityBuilder)
+    {
+        entityBuilder
+            .Property<DateTime?>(n => n.Updated)
+            .HasDefaultValueSql<DateTime?>("now()")
+            .ValueGeneratedNever();
+    }
 }
