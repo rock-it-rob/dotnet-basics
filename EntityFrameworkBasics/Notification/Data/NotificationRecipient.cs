@@ -2,7 +2,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using System.ComponentModel.DataAnnotations;
 
-namespace EntityFrameworkBasics.Data.Notification;
+namespace EntityFrameworkBasics.Notification.Data;
 
 public class NotificationRecipient
 {

@@ -3,8 +3,9 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using Microsoft.Extensions.Options;
 using Microsoft.Extensions.Logging;
 using EntityFrameworkBasics.Options;
+using EntityFrameworkBasics.Data;
 
-namespace EntityFrameworkBasics.Data.Notification;
+namespace EntityFrameworkBasics.Notification.Data;
 
 public class NotificationContext : AbstractDatabaseContext
 {
