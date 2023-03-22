@@ -1,10 +1,11 @@
 using System.ComponentModel.DataAnnotations;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
+using EntityFrameworkBasics.Data;
 
 namespace EntityFrameworkBasics.Notification.Data;
 
-public class NotificationMessage
+public class NotificationMessage : IUpdateTimestamp
 {
     [Key]
     public long Id { get; set; }
@@ -12,7 +13,7 @@ public class NotificationMessage
     public required string Message { get; set; }
 
     [Required]
-    public DateTime? Updated { get; private set; }
+    public DateTime? Updated { get; set; }
 
     [Required]
     public long? NotificationId { get; set; }
@@ -29,9 +30,5 @@ public class NotificationMessageConfiguration : IEntityTypeConfiguration<Notific
 {
     public void Configure(EntityTypeBuilder<NotificationMessage> entityBuilder)
     {
-        entityBuilder
-            .Property<DateTime?>(n => n.Updated)
-            .HasDefaultValueSql<DateTime?>("now()")
-            .ValueGeneratedNever();
     }
 }

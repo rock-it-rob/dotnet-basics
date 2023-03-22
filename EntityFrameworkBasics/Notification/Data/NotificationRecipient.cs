@@ -1,19 +1,19 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using System.ComponentModel.DataAnnotations;
+using EntityFrameworkBasics.Data;
 
 namespace EntityFrameworkBasics.Notification.Data;
 
-public class NotificationRecipient
+public class NotificationRecipient : IUpdateTimestamp
 {
     [Key]
     public long Id { get; set; }
 
     public required string EmailAddress { get; set; }
 
-    // Set from the database by default.
     [Required]
-    public DateTime? Updated { get; private set; }
+    public DateTime? Updated { get; set; }
 
     [Required]
     public long? NotificationId { get; set; }
@@ -30,9 +30,5 @@ public class NotificationRecipientConfiguration : IEntityTypeConfiguration<Notif
 {
     public void Configure(EntityTypeBuilder<NotificationRecipient> entityBuilder)
     {
-        entityBuilder
-            .Property<DateTime?>(n => n.Updated)
-            .HasDefaultValueSql<DateTime?>("now()")
-            .ValueGeneratedNever();
     }
 }

@@ -1,10 +1,11 @@
 using System.ComponentModel.DataAnnotations;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
+using EntityFrameworkBasics.Data;
 
 namespace EntityFrameworkBasics.Notification.Data;
 
-public class Notification
+public class Notification : IUpdateTimestamp
 {
     [Key]
     public long Id { get; set; }
@@ -12,31 +13,20 @@ public class Notification
     public required string Subject { get; set; }
 
     [Required]
-    public DateTime? Updated { get; private set; }
+    public DateTime? Updated { get; set; }
 
-    public required NotificationMessage NotificationMessage;
+    public required NotificationMessage NotificationMessage { get; set; }
 
-    public List<NotificationRecipient> NotificationRecipients = new List<NotificationRecipient>();
+    public List<NotificationRecipient> NotificationRecipients { get; set; } = new List<NotificationRecipient>();
 
     // Can this setter be private?
     [Timestamp]
     public uint Version { get; private set; }
-
-    public Notification()
-    {
-    }
-
-    public Notification(string subject, NotificationMessage notificationMessage)
-        => (Subject, NotificationMessage) = (subject, notificationMessage);
 }
 
 public class NotificationConfiguration : IEntityTypeConfiguration<Notification>
 {
     public void Configure(EntityTypeBuilder<Notification> entityBuilder)
     {
-        entityBuilder
-            .Property<DateTime?>(n => n.Updated)
-            .HasDefaultValueSql<DateTime?>("now()")
-            .ValueGeneratedNever();
     }
 }

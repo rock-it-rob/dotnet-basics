@@ -3,6 +3,7 @@ using System;
 using EntityFrameworkBasics.Notification.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
@@ -11,9 +12,11 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace EntityFrameworkBasics.Migrations
 {
     [DbContext(typeof(NotificationContext))]
-    partial class NotificationContextModelSnapshot : ModelSnapshot
+    [Migration("20230321212655_CorrectTimestamp")]
+    partial class CorrectTimestamp
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -87,7 +90,6 @@ namespace EntityFrameworkBasics.Migrations
                         .HasName("pk_notification_messages");
 
                     b.HasIndex("NotificationId")
-                        .IsUnique()
                         .HasDatabaseName("ix_notification_messages_notification_id");
 
                     b.ToTable("notification_messages", (string)null);
@@ -135,8 +137,8 @@ namespace EntityFrameworkBasics.Migrations
             modelBuilder.Entity("EntityFrameworkBasics.Notification.Data.NotificationMessage", b =>
                 {
                     b.HasOne("EntityFrameworkBasics.Notification.Data.Notification", "Notification")
-                        .WithOne("NotificationMessage")
-                        .HasForeignKey("EntityFrameworkBasics.Notification.Data.NotificationMessage", "NotificationId")
+                        .WithMany()
+                        .HasForeignKey("NotificationId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired()
                         .HasConstraintName("fk_notification_messages_notifications_notification_id");
@@ -147,21 +149,13 @@ namespace EntityFrameworkBasics.Migrations
             modelBuilder.Entity("EntityFrameworkBasics.Notification.Data.NotificationRecipient", b =>
                 {
                     b.HasOne("EntityFrameworkBasics.Notification.Data.Notification", "notification")
-                        .WithMany("NotificationRecipients")
+                        .WithMany()
                         .HasForeignKey("NotificationId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired()
                         .HasConstraintName("fk_notification_recipients_notifications_notification_id");
 
                     b.Navigation("notification");
-                });
-
-            modelBuilder.Entity("EntityFrameworkBasics.Notification.Data.Notification", b =>
-                {
-                    b.Navigation("NotificationMessage")
-                        .IsRequired();
-
-                    b.Navigation("NotificationRecipients");
                 });
 #pragma warning restore 612, 618
         }

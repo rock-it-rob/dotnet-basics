@@ -1,5 +1,5 @@
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Metadata.Builders;
+using Microsoft.EntityFrameworkCore.ChangeTracking;
 using Microsoft.Extensions.Options;
 using Microsoft.Extensions.Logging;
 using EntityFrameworkBasics.Options;
@@ -19,6 +19,20 @@ public class NotificationContext : AbstractDatabaseContext
         ILogger<NotificationContext> log
     ) : base(options, dbConfig, log)
     {
+        // Subscribe to the detect changes event in order to update the timestamps
+        // on each entity type that supports it.
+        ChangeTracker.DetectedEntityChanges += OnDetectChanges;
+    }
+
+    private void OnDetectChanges(object? sender, DetectedEntityChangesEventArgs eventArgs)
+    {
+        _log.LogDebug($"OnDetectChanges for {eventArgs.Entry}");
+
+        if (eventArgs.Entry.Entity is IUpdateTimestamp u)
+        {
+            _log.LogDebug($"Updating timestamp on {u}");
+            u.Updated = DateTime.UtcNow;
+        }
     }
 
     protected override void OnConfiguring(DbContextOptionsBuilder options)
@@ -31,16 +45,5 @@ public class NotificationContext : AbstractDatabaseContext
     {
         // Call the entity method on each entity to fire their configuring interfaces.
         modelBuilder.ApplyConfigurationsFromAssembly(typeof(NotificationRecipientConfiguration).Assembly);
-
-        // Add a trigger to populate the updated column on default updates.
-        modelBuilder
-            .Entity<Notification>(
-                builder =>
-                    builder.Metadata.AddTrigger(
-                        @"create trigger n1_trigger before insert or update on notifications
-	                        for each row execute procedure set_update()"
-                    )
-            );
-
     }
 }

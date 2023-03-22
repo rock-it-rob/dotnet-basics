@@ -4,6 +4,7 @@ using Microsoft.Extensions.DependencyInjection;
 using EntityFrameworkBasics.Options;
 using EntityFrameworkBasics.Notification.Data;
 using Microsoft.Extensions.Options;
+using EntityFrameworkBasics.Notification.Service;
 
 namespace EntityFrameworkBasics;
 
@@ -11,17 +12,17 @@ public class SampleOperations
 {
     private readonly ILogger<SampleOperations> _log;
     private readonly DbConfigurationOptions _dbConfigurationOptions;
-    private readonly NotificationContext _notificationContext;
+    private readonly NotificationService _notificationService;
 
     public SampleOperations(
         ILogger<SampleOperations> log,
         IOptions<DbConfigurationOptions> dbConfigurationOptions,
-        NotificationContext notificationContext
+        NotificationService notificationService
     )
     {
         _log = log;
         _dbConfigurationOptions = dbConfigurationOptions.Value;
-        _notificationContext = notificationContext;
+        _notificationService = notificationService;
     }
 
     public static void Main(string[] args)
@@ -41,6 +42,8 @@ public class SampleOperations
     {
         // Services
         services.AddScoped<SampleOperations>();
+        services.AddScoped<NotificationService>();
+
 
         // Options
         services.AddOptions<DbConfigurationOptions>()
@@ -58,10 +61,8 @@ public class SampleOperations
     {
         _log.LogInformation("Starting");
 
-        var nots = _notificationContext.Notifications!.Count();
+        var notification = _notificationService.createNotification(new List<string> { "sample@email.com" }, "Sample subject", "Sample message");
 
-        _log.LogInformation($"Total Notifications = {nots}");
-
-        //_lifetime.StopApplication();
+        _log.LogInformation($"Create Notification {notification.Id}");
     }
 }
