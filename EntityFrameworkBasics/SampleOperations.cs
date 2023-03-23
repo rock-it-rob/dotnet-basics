@@ -13,12 +13,12 @@ public class SampleOperations
 {
     private readonly ILogger<SampleOperations> _log;
     private readonly DbConfigurationOptions _dbConfigurationOptions;
-    private readonly NotificationService _notificationService;
+    private readonly INotificationService _notificationService;
 
     public SampleOperations(
         ILogger<SampleOperations> log,
         IOptions<DbConfigurationOptions> dbConfigurationOptions,
-        NotificationService notificationService
+        INotificationService notificationService
     )
     {
         _log = log;
@@ -43,7 +43,7 @@ public class SampleOperations
     {
         // Services
         services.AddTransient<SampleOperations>();
-        services.AddScoped<NotificationService>();
+        services.AddScoped<INotificationService, NotificationService>();
         services.AddScoped<INotificationRepository, NotificationRepository>();
 
 

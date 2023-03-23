@@ -4,7 +4,7 @@ using EntityFrameworkBasics.Notify.Data.Model;
 using EntityFrameworkBasics.Notify.Data.Repository;
 using Microsoft.Extensions.Logging;
 
-public class NotificationService
+public class NotificationService : INotificationService
 {
     private readonly INotificationRepository _repository;
     private readonly ILogger<NotificationService> _log;
