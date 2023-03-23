@@ -5,6 +5,7 @@ using EntityFrameworkBasics.Options;
 using Microsoft.Extensions.Options;
 using EntityFrameworkBasics.Notify.Service;
 using EntityFrameworkBasics.Notify.Data;
+using EntityFrameworkBasics.Notify.Data.Repository;
 
 namespace EntityFrameworkBasics;
 
@@ -41,8 +42,9 @@ public class SampleOperations
     private static void AddServices(HostBuilderContext context, IServiceCollection services)
     {
         // Services
-        services.AddScoped<SampleOperations>();
+        services.AddTransient<SampleOperations>();
         services.AddScoped<NotificationService>();
+        services.AddScoped<INotificationRepository, NotificationRepository>();
 
 
         // Options

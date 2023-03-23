@@ -1,16 +1,16 @@
 namespace EntityFrameworkBasics.Notify.Service;
 
-using EntityFrameworkBasics.Notify.Data;
 using EntityFrameworkBasics.Notify.Data.Model;
+using EntityFrameworkBasics.Notify.Data.Repository;
 using Microsoft.Extensions.Logging;
 
 public class NotificationService
 {
-    private readonly NotificationContext _notificationContext;
+    private readonly INotificationRepository _repository;
     private readonly ILogger<NotificationService> _log;
 
-    public NotificationService(NotificationContext notificationContext, ILogger<NotificationService> log)
-        => (_notificationContext, _log) = (notificationContext, log);
+    public NotificationService(INotificationRepository repository, ILogger<NotificationService> log)
+        => (_repository, _log) = (repository, log);
 
     /// <summary>Creates a new Notification</summary>
     /// returns the newly created Notification.
@@ -36,12 +36,11 @@ public class NotificationService
             notification.NotificationRecipients.Add(new NotificationRecipient { EmailAddress = recipient });
         }
 
-        _notificationContext.Add(notification);
+        _repository.Create(notification);
 
-        _notificationContext.ChangeTracker.DetectChanges();
-        _log.LogDebug($"{_notificationContext.ChangeTracker.DebugView.LongView}");
+        _log.LogInformation(_repository.DetectChanges());
 
-        _notificationContext.SaveChanges();
+        _repository.SaveChanges();
 
         return notification;
     }
