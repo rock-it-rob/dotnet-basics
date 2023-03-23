@@ -2,9 +2,9 @@
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.DependencyInjection;
 using EntityFrameworkBasics.Options;
-using EntityFrameworkBasics.Notification.Data;
 using Microsoft.Extensions.Options;
-using EntityFrameworkBasics.Notification.Service;
+using EntityFrameworkBasics.Notify.Service;
+using EntityFrameworkBasics.Notify.Data;
 
 namespace EntityFrameworkBasics;
 

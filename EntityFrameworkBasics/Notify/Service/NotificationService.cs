@@ -1,6 +1,7 @@
-namespace EntityFrameworkBasics.Notification.Service;
+namespace EntityFrameworkBasics.Notify.Service;
 
-using EntityFrameworkBasics.Notification.Data;
+using EntityFrameworkBasics.Notify.Data;
+using EntityFrameworkBasics.Notify.Data.Model;
 using Microsoft.Extensions.Logging;
 
 public class NotificationService
@@ -16,10 +17,10 @@ public class NotificationService
     /// There must be at least one recipient provided. All recipients are email addresses.
     public Notification createNotification(ICollection<string> recipients, string subject, string message)
     {
-        if (String.IsNullOrWhiteSpace(subject))
+        if (string.IsNullOrWhiteSpace(subject))
             throw new ArgumentException(nameof(subject), "subject must be provided");
 
-        if (String.IsNullOrWhiteSpace(message))
+        if (string.IsNullOrWhiteSpace(message))
             throw new ArgumentException(nameof(message), "message must be provided");
 
         if (recipients.Count == 0)

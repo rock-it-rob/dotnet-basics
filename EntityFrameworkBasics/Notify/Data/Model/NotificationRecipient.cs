@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using System.ComponentModel.DataAnnotations;
 using EntityFrameworkBasics.Data;
 
-namespace EntityFrameworkBasics.Notification.Data;
+namespace EntityFrameworkBasics.Notify.Data.Model;
 
 public class NotificationRecipient : IUpdateTimestamp
 {

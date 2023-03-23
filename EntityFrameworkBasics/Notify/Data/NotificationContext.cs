@@ -4,8 +4,9 @@ using Microsoft.Extensions.Options;
 using Microsoft.Extensions.Logging;
 using EntityFrameworkBasics.Options;
 using EntityFrameworkBasics.Data;
+using EntityFrameworkBasics.Notify.Data.Model;
 
-namespace EntityFrameworkBasics.Notification.Data;
+namespace EntityFrameworkBasics.Notify.Data;
 
 public class NotificationContext : AbstractDatabaseContext
 {
@@ -44,6 +45,6 @@ public class NotificationContext : AbstractDatabaseContext
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         // Call the entity method on each entity to fire their configuring interfaces.
-        modelBuilder.ApplyConfigurationsFromAssembly(typeof(NotificationRecipientConfiguration).Assembly);
+        modelBuilder.ApplyConfigurationsFromAssembly(typeof(NotificationContext).Assembly);
     }
 }
