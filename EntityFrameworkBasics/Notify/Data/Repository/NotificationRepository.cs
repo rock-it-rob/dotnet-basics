@@ -24,4 +24,9 @@ public class NotificationRepository : INotificationRepository
     {
         _context.Add(notification);
     }
+
+    public Notification Read(long id)
+    {
+        return _context.Notifications!.Find(id)!;
+    }
 }
