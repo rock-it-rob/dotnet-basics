@@ -29,6 +29,9 @@ public class NotificationContext : AbstractDatabaseContext
     {
         _log.LogDebug($"OnDetectChanges for {eventArgs.Entry}");
 
+        if (!new List<EntityState> { EntityState.Added, EntityState.Modified }.Contains(eventArgs.Entry.State))
+            return;
+
         if (eventArgs.Entry.Entity is IUpdateTimestamp u)
         {
             _log.LogDebug($"Updating timestamp on {u}");
