@@ -15,7 +15,7 @@ public class NotificationService : INotificationService
     /// <summary>Creates a new Notification</summary>
     /// returns the newly created Notification.
     /// There must be at least one recipient provided. All recipients are email addresses.
-    public Notification createNotification(ICollection<string> recipients, string subject, string message)
+    public Notification CreateNotification(ICollection<string> recipients, string subject, string message)
     {
         if (string.IsNullOrWhiteSpace(subject))
             throw new ArgumentException(nameof(subject), "subject must be provided");
@@ -43,5 +43,24 @@ public class NotificationService : INotificationService
         _repository.SaveChanges();
 
         return notification;
+    }
+
+    /// <summary>Updates a Notification's subject</summary>
+    public void ChangeNotificationSubject(long id, string subject)
+    {
+        if (string.IsNullOrWhiteSpace(subject))
+            throw new InvalidDataException("No value for subject");
+
+        var notification = _repository.Read(id);
+
+        if (notification is null)
+            throw new InvalidDataException($"No Notification found for id: {id}");
+
+        _log.LogInformation($"Updating Notification {id} to subject {subject}");
+
+        notification.Subject = subject;
+        _repository.Update(notification);
+        _log.LogInformation(_repository.DetectChanges());
+        _repository.SaveChanges();
     }
 }

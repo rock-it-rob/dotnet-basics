@@ -4,5 +4,7 @@ namespace EntityFrameworkBasics.Notify.Service;
 
 public interface INotificationService
 {
-    public Notification createNotification(ICollection<string> recipients, string subject, string message);
+    public Notification CreateNotification(ICollection<string> recipients, string subject, string message);
+
+    public void ChangeNotificationSubject(long id, string subject);
 }

@@ -63,7 +63,8 @@ public class SampleOperations
     {
         _log.LogInformation("Starting");
 
-        var notification = _notificationService.createNotification(new List<string> { "sample@email.com" }, "Sample subject", "Sample message");
+        var notification = _notificationService.CreateNotification(new List<string> { "sample@email.com" }, "Sample subject", "Sample message");
+        _notificationService.ChangeNotificationSubject(notification.Id, "Updated Subject");
 
         _log.LogInformation($"Create Notification {notification.Id}");
     }
