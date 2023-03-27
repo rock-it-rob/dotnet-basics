@@ -97,4 +97,33 @@ public class Tests : AbstractRepositoryTest
         Notification n = _repository!.Read(id);
         Assert.IsNotNull(n);
     }
+
+    [Test]
+    public void TestUpdate()
+    {
+        using var tx = _notificationContext!.Database.BeginTransaction();
+
+        const string sub = "Updated subject";
+        long id = CreateNotification();
+
+        var n = (from notification in _notificationContext.Notifications
+                 where notification.Id == id
+                 select notification)
+            .Include(n => n.NotificationMessage)
+            .AsNoTracking()
+            .First();
+
+        n.Subject = sub;
+        _repository!.Update(n);
+
+        _repository.SaveChanges();
+        _notificationContext.ChangeTracker.Clear();
+
+        string subject = _notificationContext.Notifications!
+            .FromSql($"select subject from notifications where id = {id}")
+            .Select(n => n.Subject)
+            .First();
+
+        Assert.That(subject, Is.EqualTo(sub));
+    }
 }

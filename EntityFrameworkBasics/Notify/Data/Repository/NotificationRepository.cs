@@ -29,4 +29,9 @@ public class NotificationRepository : INotificationRepository
     {
         return _context.Notifications!.Find(id)!;
     }
+
+    public void Update(Notification notification)
+    {
+        _context.Notifications!.Update(notification);
+    }
 }
