@@ -10,9 +10,14 @@ namespace EntityFrameworkBasics.Notify.Data;
 
 public class NotificationContext : AbstractDatabaseContext
 {
-    public DbSet<Notification>? Notifications { get; set; }
-    public DbSet<NotificationMessage>? NotificationMessages { get; set; }
-    public DbSet<NotificationRecipient>? NotificationRecipients { get; set; }
+    public DbSet<Notification>? Notifications
+        => Set<Notification>();
+
+    public DbSet<NotificationMessage>? NotificationMessages
+        => Set<NotificationMessage>();
+
+    public DbSet<NotificationRecipient>? NotificationRecipients
+        => Set<NotificationRecipient>();
 
     public NotificationContext(
         DbContextOptions<NotificationContext> options,
